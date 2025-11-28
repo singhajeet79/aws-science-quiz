@@ -14,5 +14,6 @@ Starter repo for a 10-question online science quiz hosted on AWS (free tier frie
    - shows 10 questions, one page.\
    - posts answers to /submit endpoint (API Gateway).\
    - shows final score after submission (optionally calculated on server).
+
 2- Host build on an S3 bucket configured for static website hosting (or host behind CloudFront for HTTPS).\
 3- Create CloudFront distribution with the S3 bucket as origin; enable HTTPS and set cache rules (no caching for API calls — only static assets). CloudFront has free tier allowances; still good to use for performance. 
