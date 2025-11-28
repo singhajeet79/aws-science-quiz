@@ -45,3 +45,13 @@ Use on-demand mode to avoid capacity provisioning for the one-time event. Smalle
 Options:
    - Simplest: pre-issue school codes + student roll numbers; frontend asks for school code + roll number; backend verifies against a simple CSV / DynamoDB table of valid students. Good if you already have a list per school.
    - Stronger: use Cognito user pool and pre-create users (or self-sign up with verification). Cognito free tier often covers tens of thousands MAUs for Lite/Essentials tiers — check current quotas for your account.
+
+### (5) Deployment / IaC
+   - Use AWS SAM or Serverless Framework or Terraform in infra/. SAM is great for Lambda + API Gateway + DynamoDB as a single deployable template.
+   - Create IAM roles for Lambda with least privilege (DynamoDB: PutItem/GetItem only for the specific table).
+
+### CI/CD: GitHub Actions
+   - On push to main, build frontend, run tests, then:
+   -- upload frontend build to S3 (invalidate CloudFront after deploy).
+   -- deploy SAM/CloudFormation (aws cloudformation deploy) or sam deploy.
+   - Use GitHub secrets for AWS credentials (IAM user with programmatic access and limited deploy permissions).
