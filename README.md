@@ -34,9 +34,11 @@ One table ExamResponses:
    - PK: schoolId#sessionId or sessionId
    - Sort key: timestamp or studentId
      Attributes: answers (JSON), score, submitTime, metadata (school/class/grade).
+
 Another table Questions:
    - PK: examId (e.g., science-grade6-2025)
    - store questions + choices + correct answers (or store correct answers encrypted / in separate table only for scoring function).
+
 Use on-demand mode to avoid capacity provisioning for the one-time event. Smaller item sizes reduce costs.
 
 ### (4) Authentication / Student identity
