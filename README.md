@@ -52,8 +52,8 @@ Options:
 
 ### (6) CI/CD: GitHub Actions
    - On push to main, build frontend, run tests, then:
-    - upload frontend build to S3 (invalidate CloudFront after deploy).
-    - deploy SAM/CloudFormation (aws cloudformation deploy) or sam deploy.
+    * upload frontend build to S3 (invalidate CloudFront after deploy).
+    * deploy SAM/CloudFormation (aws cloudformation deploy) or sam deploy.
    - Use GitHub secrets for AWS credentials (IAM user with programmatic access and limited deploy permissions).
 
 ### (7) Monitoring & Logs
