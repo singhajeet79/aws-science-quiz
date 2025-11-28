@@ -50,8 +50,20 @@ Options:
    - Use AWS SAM or Serverless Framework or Terraform in infra/. SAM is great for Lambda + API Gateway + DynamoDB as a single deployable template.
    - Create IAM roles for Lambda with least privilege (DynamoDB: PutItem/GetItem only for the specific table).
 
-### CI/CD: GitHub Actions
+### (6) CI/CD: GitHub Actions
    - On push to main, build frontend, run tests, then:
-   -- upload frontend build to S3 (invalidate CloudFront after deploy).
-   -- deploy SAM/CloudFormation (aws cloudformation deploy) or sam deploy.
+    - upload frontend build to S3 (invalidate CloudFront after deploy).
+    - deploy SAM/CloudFormation (aws cloudformation deploy) or sam deploy.
    - Use GitHub secrets for AWS credentials (IAM user with programmatic access and limited deploy permissions).
+
+### (7) Monitoring & Logs
+   - Use CloudWatch Logs for Lambda and API Gateway logs. Set retention and create CloudWatch Alarms for errors or throttling.
+   - Keep an eye on CloudWatch metrics for DynamoDB throttling and Lambda errors.
+   - Enable X-Ray if you want distributed tracing for debugging.
+
+### (8) Testing
+   - Dry run with smaller groups (e.g., 50–200 users) to capture performance and tweak concurrency setting, retry logic, and DynamoDB consistency.
+   - Use a load test tool (k6 or Artillery) to simulate concurrent post requests. Test on a staging account first.
+
+### (9) Cost control & safety
+   - Turn on billing alarms (AWS Budgets) to avoid surprises. For a mostly serverless short event costs can be low — but watch data transfer and Lambda execution time. New accounts often get credits.
